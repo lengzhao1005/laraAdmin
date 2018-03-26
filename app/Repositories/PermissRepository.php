@@ -9,7 +9,14 @@
 namespace App\Repositories;
 
 
+use App\Handlers\ImageUploadHandler;
+use App\Model\User;
+
 class PermissRepository
 {
-    
+    public function createUser($user_data)
+    {
+        $user = User::create($user_data);
+        dd($user);
+    }
 }

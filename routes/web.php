@@ -25,17 +25,17 @@ Route::get('/', function () {
 
     exit;*/
     /*$data = [];
-    for($i=3007;$i<=3016;$i++) {
+    for($i=3017;$i<=5017;$i++) {
         $data[$i]['allpay_mno'] = '86570004';
         $data[$i]['id_wxplatform'] = 1;
         $data[$i]['mchreturn'] = 20;
         $data[$i]['createtime'] = date('Y-m-d H:i:s');
         $data[$i]['feerate'] = 30;
         $data[$i]['remain_cash'] = 0;
-    }
+    }*/
     //dd($data);
-    $res = DB::connection('mysql_yinzhun')->table('merchant')->insert($data);
-    dd($res);*/
+    //$res = DB::connection('mysql_yinzhun')->table('merchant')->insert($data);
+    //dd($res);
     /*$i=8;
     $step1=base64_encode($i);
     $step2=strrev($step1);

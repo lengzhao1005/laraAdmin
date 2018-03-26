@@ -14,7 +14,9 @@
         <link rel="stylesheet" href="{{url('dist/css/AdminLTE.css')}}">
         <link rel="stylesheet" href="{{url('dist/css/skins/_all-skins.min.css')}}">
     @show
-
+    <style>
+        .is-invalid{border-color:red}
+    </style>
 
     @section('other-css')
     @show  {{----}}
@@ -56,7 +58,7 @@
 </div>
 
 @section('head-js')
-    <script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    <dscript src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></dscript>
     <script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/vue/2.0.0-rc.5/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/vue.resource/1.0.2/vue-resource.min.js"></script>

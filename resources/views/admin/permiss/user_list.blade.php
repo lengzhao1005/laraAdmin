@@ -12,7 +12,7 @@
 
 @section('content')
     <h2 class="page-header">
-        <a href="#">
+        <a href="{{url('admin/users/create')}}">
             <button class="btn btn-lg btn-info"><i class="fa icon ion-plus"></i>添加用户</button>
         </a>
     </h2>

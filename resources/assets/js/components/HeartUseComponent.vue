@@ -18,8 +18,6 @@
             console.log('Component mounted.')
         },
 
-        name:'example-show1-component',
-
         props:['canuse'],
 
         data(){

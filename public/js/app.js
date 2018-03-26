@@ -13858,7 +13858,8 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-module.exports = __webpack_require__(43);
+__webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 
 /***/ }),
@@ -13879,10 +13880,12 @@ window.Vue = __webpack_require__(36);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * or customize the JavaScript scaffolding to fit your unique needs.canuse
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('example-show-component', __webpack_require__(39));
+//Vue.component('heart-use-component', require('./components/HeartUseComponent'));
+
 
 var app = new Vue({
   el: '#app'
@@ -47272,12 +47275,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounted.');
+    },
+
+
+    name: 'example-show1-component',
+
+    props: ['canuse'],
+
+    data: function data() {
+        return {
+            count: 12,
+            empty_src: '/images/aixin1.png',
+            full_src: '/images/aixin.png'
+        };
+    },
+
+    methods: {
+        useHeart: function useHeart(event) {
+            this.$http('/api/').then(function (response) {
+                console.log(response.data);
+            }).catch(function (reason) {
+                console.log(reason);
+            });
+            if (event.currentTarget.getAttribute("src") === this.full_src) return;
+            event.currentTarget.setAttribute("src", this.full_src);
+        }
     }
 });
 
@@ -47289,32 +47315,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
+  return _c(
+    "div",
+    { staticClass: "heart" },
+    _vm._l(_vm.count, function(i) {
+      return _c("span", { key: i }, [
+        _c("img", {
+          attrs: {
+            src: i < _vm.canuse ? _vm.full_src : _vm.empty_src,
+            width: "10%",
+            alt: ""
+          },
+          on: {
+            click: function($event) {
+              _vm.useHeart($event)
+            }
+          }
+        }),
+        _vm._v(" "),
+        i == 4
+          ? _c("div", { staticClass: "vertical-line" })
+          : i == 8
+            ? _c("div", { staticClass: "vertical1-line" })
+            : i < 12 ? _c("div", { staticClass: "line" }) : _vm._e()
       ])
-    ])
-  }
-]
+    })
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -47326,6 +47354,12 @@ if (false) {
 
 /***/ }),
 /* 43 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
