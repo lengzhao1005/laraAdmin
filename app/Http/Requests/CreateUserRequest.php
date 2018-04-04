@@ -27,6 +27,7 @@ class CreateUserRequest extends FormRequest
             'name'=>'required|between:1,30',
             'password'=>'required|confirmed|min:6',
             'email'=>'required|unique:users',
+            'phone'=>'required|unique:users',
             'avatar'=>'image'
         ];
     }
@@ -41,6 +42,8 @@ class CreateUserRequest extends FormRequest
             'password.min'=>'密码最少6个字符',
             'email.required'=>'邮箱不能为空',
             'email.unique'=>'该邮箱已注册',
+            'phone.required'=>'手机不能为空',
+            'phone.unique'=>'该手机已注册',
             'avatar'=>'请传人图片文件'
         ];
     }

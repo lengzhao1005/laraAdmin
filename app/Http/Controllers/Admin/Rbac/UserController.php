@@ -44,19 +44,19 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,ImageUploadHandler $imageUploadHandler)//CreateUserRequest
+    public function store(CreateUserRequest $request,ImageUploadHandler $imageUploadHandler)//CreateUserRequest
     {
-
-        $save_user_res = $this->permissRepository->createUser($request->only('name,'));
+        $save_user_res = $this->permissRepository->createUser($request->only(['name','email','phone','password','is_admin']));
 
         $save_path = 'upload/images/avatars/'; //图片保存地址 /storage
         $save_name = 'avatar_';         //图片名称
         if($request->avatar) {
             $avatar_res = $imageUploadHandler->save($request->avatar,$save_path,$save_name,150);
-
+            $save_user_res->avatar = $avatar_res['path'];
+            $save_user_res->save();
         }
 
-
+        return redirect('/admin/users/create')->with('status','添加成功');
     }
 
     /**

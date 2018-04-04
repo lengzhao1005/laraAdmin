@@ -30,6 +30,7 @@ class CreateRbacTable extends Migration
             $table->increments('id');
             $table->string('name',100)->unique()->comment('权限名称');
             $table->string('url')->unique()->comment('权限路由');
+            $table->tinyInteger('group')->index()->comment('权限路由');
             $table->string('description')->nullable()->comment('权限描述');
             $table->enum('status',['F','T'])->default('T')->comment('F:禁用；T启用');
             $table->timestamps();

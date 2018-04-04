@@ -13,29 +13,26 @@
 
 Route::get('/', function () {
 
-    /*for($i=1007;$i<=1020;$i++){
-        $step1=base64_encode($i);
+    $i='PT1RT3hJVE4=';
+        $step1=base64_decode($i);
         $step2=strrev($step1);
-        $res = base64_encode($step2);
-        $str_res = "http://pv.visastandards.com/pay/wx?id_merchant={$res}==";
+        $res = base64_decode($step2);
 
-        echo $str_res;
+    dd($res);
 
-    }
 
-    exit;*/
-    /*$data = [];
-    for($i=3017;$i<=5017;$i++) {
+    $data = [];
+    for($i=5018;$i<=10017;$i++) {
         $data[$i]['allpay_mno'] = '86570004';
         $data[$i]['id_wxplatform'] = 1;
         $data[$i]['mchreturn'] = 20;
         $data[$i]['createtime'] = date('Y-m-d H:i:s');
         $data[$i]['feerate'] = 30;
         $data[$i]['remain_cash'] = 0;
-    }*/
+    }
     //dd($data);
-    //$res = DB::connection('mysql_yinzhun')->table('merchant')->insert($data);
-    //dd($res);
+    $res = DB::connection('mysql_yinzhun')->table('merchant')->insert($data);
+    dd($res);
     /*$i=8;
     $step1=base64_encode($i);
     $step2=strrev($step1);
@@ -58,8 +55,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+
 //==============================后台
 Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
+    //==========================主页
+    Route::get('/','AdminController@main');
+    //==========================上传
+    Route::post('upload/{action}','HandlerController@upload');
     //==========================首页
     Route::get('/index','AdminController@index');
 
@@ -67,4 +70,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     Route::resource('users','Rbac\UserController');
     Route::resource('roles','Rbac\RoleController');
     Route::resource('permissions','Rbac\PermissionController');
+    //==========================获取数据列表
+    Route::get('table/user/','Rbac\ListController@adminUsers');
+    Route::get('table/permission/','Rbac\ListController@adminPermissions');
+    Route::get('table/role/','Rbac\ListController@adminRoles');
 });

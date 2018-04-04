@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Rbac;
 
+use App\Http\Requests\PermissionRequest;
+use App\Model\Permission;
+use App\Repositories\PermissRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
+    protected $permissiRepository;
+    public function __construct(PermissRepository $permissRepository)
+    {
+        $this->permissiRepository = $permissRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.permiss.permission_list');
     }
 
     /**
@@ -24,7 +33,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        $grop = config('app.permiss_grop');
+        return view('admin.permiss.permission_create',compact('grop'));
     }
 
     /**
@@ -33,9 +43,10 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        $this->permissiRepository->createPermission($request->only(['name','url','description','status']));
+        return redirect('admin/permissions/create')->with('status','添加成功');
     }
 
     /**

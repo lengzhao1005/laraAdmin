@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Rbac;
 
+use App\Http\Requests\PermissionRequest;
+use App\Repositories\PermissRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    protected $_repositroy;
+
+    public function __construct(PermissRepository $permissRepository)
+    {
+        $this->_repositroy = $permissRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.permiss.role_list');
     }
 
     /**
@@ -24,7 +33,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permission = $this->_repositroy->getAllPermissionBuyGroup();
+
+        return view('admin.permiss.role_create',compact('permission'));
     }
 
     /**
@@ -35,7 +46,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:roles',
+        ],['name.unique'=>'角色名称已存在']);
+
+        $res = $this->_repositroy->createRole($request->all());
+
+        if($res) return redirect('/admin/roles')->with('status','添加成功');
+        return redirect('/admin/roles')->with('status','添加失败');
     }
 
     /**

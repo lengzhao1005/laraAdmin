@@ -1,165 +1,313 @@
-@extends('admin.admin')
-@section('content-header')
-    <section class="content-header">
-        <h1>
-            控制面板
-            <small>概述</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{url('/admin/index')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">控制面板</li>
-        </ol>
-    </section>
-@endsection
+@extends('layouts.admin_layout')
 
 @section('content')
-    <section class="content">
-        <div class="row">
-            @foreach([1,2,3,4] as $collect)
-                <div class="col-lg-3 col-xs-6">
-                    <div class="small-box bg-olive" style="color: #fff">
-                        <div class="inner">
-                            <h3>40<sup style="font-size: 20px">条</sup></h3>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">快捷方式</div>
+                        <div class="layui-card-body">
 
-                            <p>title</p>
+                            <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/layer/list.html">
+                                                <i class="layui-icon layui-icon-website"></i>
+                                                <cite>弹层</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/button/">
+                                                <i class="layui-icon layui-icon-find-fill"></i>
+                                                <cite>按钮</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/progress/">
+                                                <i class="layui-icon layui-icon-loading-2"></i>
+                                                <cite>进度条</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a layadmin-event="im">
+                                                <i class="layui-icon layui-icon-chat"></i>
+                                                <cite>聊天</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/panel/">
+                                                <i class="layui-icon layui-icon-read"></i>
+                                                <cite>面板</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/badge/">
+                                                <i class="layui-icon layui-icon-tree"></i>
+                                                <cite>徽章</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/system/website.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>网站设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/password.html">
+                                                <i class="layui-icon layui-icon-password"></i>
+                                                <cite>密码</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pricetags"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">更多信息 <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-            @endforeach
-        </div>
-        <div class="row">
-            <section class="col-lg-7 connectedSortable">
-                <div class="box box-info">
-                    <div class="box-header">
-                        <i class="fa fa-envelope"></i>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">待办事项</div>
+                        <div class="layui-card-body">
 
-                        <h3 class="box-title">Quick Email</h3>
-                        <div class="pull-right box-tools">
-                            <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fa fa-times"></i></button>
+                            <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="layadmin-backlog-body">
+                                                <h3>待审评论</h3>
+                                                <p><cite>66</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="layadmin-backlog-body">
+                                                <h3>待审帖子</h3>
+                                                <p><cite>12</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="layadmin-backlog-body">
+                                                <h3>待审商品</h3>
+                                                <p><cite>99</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="layadmin-backlog-body">
+                                                <h3>待发货</h3>
+                                                <p><cite>20</cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="layadmin-backlog-body">
+                                                <h3>待审友情链接</h3>
+                                                <p><cite style="color: #FF5722;">5</cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <input type="email" class="form-control" name="emailto" placeholder="Email to:">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Subject">
-                            </div>
-                            <div>
-                                <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="box-footer clearfix">
-                        <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
-                            <i class="fa fa-arrow-circle-right"></i></button>
-                    </div>
                 </div>
-            </section>
-            <section class="col-lg-5 connectedSortable">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <i class="ion ion-clipboard"></i>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据概览</div>
+                        <div class="layui-card-body">
 
-                        <h3 class="box-title">To Do List</h3>
+                            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-dataview">
+                                <div carousel-item id="LAY-index-dataview">
+                                    <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
 
-                        <div class="box-tools pull-right">
-                            <ul class="pagination pagination-sm inline">
-                                <li><a href="#">&laquo;</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">&raquo;</a></li>
+                        </div>
+                    </div>
+                    <div class="layui-card">
+                        <div class="layui-tab layui-tab-brief layadmin-latestData">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">今日热搜</li>
+                                <li>今日热帖</li>
                             </ul>
+                            <div class="layui-tab-content">
+                                <div class="layui-tab-item layui-show">
+                                    <table id="LAY-index-topSearch"></table>
+                                </div>
+                                <div class="layui-tab-item">
+                                    <table id="LAY-index-topCard"></table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <ul class="todo-list">
-                            <li>
-                                <!-- drag handle -->
-                                <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                                <!-- checkbox -->
-                                <input type="checkbox" value="">
-                                <!-- todo text -->
-                                <span class="text">Design a nice theme</span>
-                                <!-- Emphasis label -->
-                                <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                                <!-- General tools such as edit or delete-->
-                                <div class="tools">
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash-o"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">版本信息</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>当前版本</td>
+                            <td>
+                                <script type="text/html" template>
+                                    1.1
+                                    <a href="http://fly.layui.com/docs/3/" target="_blank" style="padding-left: 15px;">更新日志</a>
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>基于框架</td>
+                            <td>
+                                <script type="text/html" template>
+                                    1.1
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>主要特色</td>
+                            <td>零门槛 / 响应式 / 清爽 / 极简</td>
+                        </tr>
+                        <tr>
+                            <td>获取渠道</td>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container">
+                                    <a href="http://www.layui.com/admin/" target="_blank" class="layui-btn layui-btn-danger">获取授权</a>
+                                    <a href="http://fly.layui.com/download/layuiAdmin/" target="_blank" class="layui-btn">立即下载</a>
                                 </div>
-                            </li>
-                            <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                                <input type="checkbox" value="">
-                                <span class="text">Make the theme responsive</span>
-                                <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                                <div class="tools">
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                                <input type="checkbox" value="">
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                                <div class="tools">
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                                <input type="checkbox" value="">
-                                <span class="text">Check your messages and notifications</span>
-                                <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                                <div class="tools">
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash-o"></i>
-                                </div>
-                            </li>
-                            <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                                <input type="checkbox" value="">
-                                <span class="text">Let theme shine like a star</span>
-                                <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                                <div class="tools">
-                                    <i class="fa fa-edit"></i>
-                                    <i class="fa fa-trash-o"></i>
-                                </div>
-                            </li>
-                        </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">效果报告</div>
+                <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top" lay-tips="增长" lay-offset="-15"></span>）</h3>
+                        <div class="layui-progress-bar" lay-percent="65%"></div>
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer clearfix no-border">
-                        <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>签到率（日同比 11% <span class="layui-edge layui-edge-bottom" lay-tips="下降" lay-offset="-15"></span>）</h3>
+                        <div class="layui-progress-bar" lay-percent="32%"></div>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">实时监控</div>
+                <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>CPU使用率</h3>
+                        <div class="layui-progress-bar" lay-percent="58%"></div>
+                    </div>
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>内存占用率</h3>
+                        <div class="layui-progress-bar layui-bg-red" lay-percent="90%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">产品动态</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel layadmin-carousel layadmin-news" data-autoplay="true" data-anim="fade" lay-filter="news">
+                        <div carousel-item>
+                            <div><a href="http://fly.layui.com/docs/2/" target="_blank" class="layui-bg-red">layuiAdmin 快速上手文档</a></div>
+                            <div><a href="javascript:;" onclick="layer.msg('等待添加')" target="_blank" class="layui-bg-green">layuiAdmin 集成心得分享</a></div>
+                            <div><a href="javascript:;" onclick="layer.msg('等待添加')" target="_blank" class="layui-bg-blue">首款 layui 官方后台模板系统正式发布</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    作者心语
+                    <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+                </div>
+                <div class="layui-card-body layui-text layadmin-text">
+                    <p>一直以来，layui 秉承无偿开源的初心，虔诚致力于服务各层次前后端 Web 开发者，在商业横飞的当今时代，这一信念从未动摇。即便身单力薄，仍然重拾决心，埋头造轮，以尽可能地填补产品本身的缺口。</p>
+                    <p>在过去的一段的时间，我一直在寻求持久之道，已维持你眼前所见的一切。而 layuiAdmin 是我们尝试解决的手段之一。我相信真正有爱于 layui 生态的你，定然不会错过这一拥抱吧。</p>
+                    <p>子曰：君子不用防，小人防不住。请务必通过官网正规渠道，获得 <a href="http://www.layui.com/admin/" target="_blank">layuiAdmin</a>！</p>
+                    <p>—— 贤心（<a href="http://www.layui.com/" target="_blank">layui.com</a>）</p>
+                </div>
+            </div>
         </div>
-    </section>
+
+    </div>
+@endsection
+
+@section('_js')
+    <script>
+        layui.config({
+            base: '/layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'console']);
+    </script>
 @endsection

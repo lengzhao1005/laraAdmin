@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+    public function main()
+    {
+        return view('admin.main');
+    }
+
     public function index()
     {
         return view('admin.index');

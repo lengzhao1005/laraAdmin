@@ -22,7 +22,7 @@ class ImageUploadHandler
     public function save($file,$save_path,$save_name,$max_width='')
     {
         //文件保存路径
-        $upload_path = storage_path($save_path);
+        $upload_path = storage_path('app/public/'.$save_path);
 
         //保存文件后缀名
         $extension = strtolower($file->getClientOriginalExtension());
@@ -38,7 +38,7 @@ class ImageUploadHandler
         }
 
         return [
-            'path' => '33'
+            'path' => 'app/public/'.$save_path.$file_name
         ];
     }
 

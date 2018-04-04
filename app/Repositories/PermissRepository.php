@@ -10,13 +10,108 @@ namespace App\Repositories;
 
 
 use App\Handlers\ImageUploadHandler;
+use App\Model\Permission;
+use App\Model\Role;
 use App\Model\User;
 
 class PermissRepository
 {
+    protected $user_model;
+    protected $role_model;
+    protected $permission_model;
+
+    public function __construct(User $user,Permission $permission,Role $role)
+    {
+        $this->user_model = $user;
+        $this->role_model = $role;
+        $this->permission_model = $permission;
+    }
+
     public function createUser($user_data)
     {
-        $user = User::create($user_data);
-        dd($user);
+        return $this->user_model->create($user_data);
+    }
+
+    /**
+     * @param $permission_data
+     * @return mixed
+     */
+    public function createPermission($permission_data)
+    {
+        $permission_data['status'] = ($permission_data['status'] == 'on'? 'T':'F');
+        return $this->permission_model->create($permission_data);
+    }
+
+    /**
+     * 获取管理员列表
+     * @param $page
+     * @param $limit
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAdminUserList($page,$limit)
+    {
+        $skip = $limit * ($page-1);
+        $admin_users = $this->user_model->where('is_admin',1)->skip($skip)->take($limit)->get()->toArray();
+        $count = $this->user_model->where('is_admin',1)->count();
+        return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
+
+    }
+
+    /**
+     * 获取角色列表
+     * @param $page
+     * @param $limit
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRoleList($page,$limit)
+    {
+        $skip = $limit * ($page-1);
+        $admin_users = $this->role_model->skip($skip)->take($limit)->get()->toArray();
+        $count = $this->role_model->count();
+        return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
+    }
+
+    /*
+     * 获取权限列表
+     */
+    public function getPermissionList($page,$limit)
+    {
+        $skip = $limit * ($page-1);
+        $admin_users = $this->permission_model->skip($skip)->take($limit)->get()->toArray();
+        $count = $this->permission_model->count();
+        return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
+    }
+
+    /**
+     * 获取权限分组列表
+     * @return mixed
+     */
+    public function getAllPermissionBuyGroup()
+    {
+        $permissions = Permission::where('status','T')->orderBy('group')->get();
+
+        $permissions = $permissions->mapToGroups(function($item,$key){
+
+            return [$item->group => $item];
+        });
+
+        return $permissions->toArray();
+    }
+
+    /**
+     * @param $role_data
+     */
+    public function createRole($role_data)
+    {
+        $permision_ids = $role_data['permiss']??[];
+
+        $role = Role::create($role_data);
+
+        if(!empty($role->toArray()) && !empty($permision_ids)){
+            $role->Permissions()->attach($permision_ids);
+        }
+
+        if(!empty($role->toArray())) return $role;
+        return [];
     }
 }
