@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'confirmation_token', 'api_token', 'settings','is_admin'
+        'name', 'phone', 'email', 'password', 'avatar', 'confirmation_token', 'api_token', 'settings','is_admin'
     ];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function Roles()
     {
-        return $this->belongsToMany('App\Model\Role');
+        return $this->belongsToMany('App\Model\Role')->withTimestamps();
     }
 
     public function setPasswordAttribute($value)
@@ -49,5 +49,23 @@ class User extends Authenticatable
                 'color'=>'green'
             ]
         ];
+    }
+
+    public static function getUserAndRole($skip='',$limit='')
+    {
+        if($skip!=='' && $limit!==''){
+            $data = self::where('is_admin',1)->with('Roles')->skip($skip)->take($limit)->get();
+        }else{
+            $data = self::where('is_admin',1)->with('Roles')->get();
+        }
+
+
+        return $data->map(function ($item){
+            $role_name = $item->Roles->map(function ($role){
+                return $role->name;
+            });
+            $item->roles_str = implode(',',$role_name->toArray());
+            return $item;
+        });
     }
 }

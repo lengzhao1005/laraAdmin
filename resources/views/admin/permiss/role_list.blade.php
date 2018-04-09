@@ -44,6 +44,7 @@
                     {type:'checkbox', fixed: 'left'}
                     ,{field:'id', width:80, title: 'ID', sort: true}
                     ,{field:'name', width:150, title: '角色名称'}
+                    ,{field:'permiss_str', width:150, title: '所有权限'}
                     ,{field:'description', width:120, title: '描述'}
                     ,{field: 'status', title: '状态', width: 150,templet: '#statusTpl', unresize: true}
                     ,{fixed: 'right', width:178, align:'center', toolbar: '#barTpl',title:'操作'}

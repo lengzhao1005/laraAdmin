@@ -33,7 +33,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = $this->_repositroy->getAllPermissionBuyGroup();
+        $permission = $this->_repositroy->getAllPermissionByGroup();
 
         return view('admin.permiss.role_create',compact('permission'));
     }
@@ -52,8 +52,8 @@ class RoleController extends Controller
 
         $res = $this->_repositroy->createRole($request->all());
 
-        if($res) return redirect('/admin/roles')->with('status','添加成功');
-        return redirect('/admin/roles')->with('status','添加失败');
+        if($res) return redirect('/admin/roles/create')->with('status','添加成功');
+        return redirect('/admin/roles/create')->with('status','添加失败');
     }
 
     /**

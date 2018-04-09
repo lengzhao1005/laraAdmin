@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Rbac;
 
 use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\CreateUserRequest;
+use App\Model\Role;
 use App\Repositories\PermissRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,7 +36,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.permiss.user_create');
+        //获取角色列表
+        $roles = Role::getRoles();
+
+        return view('admin.permiss.user_create',compact('roles'));
     }
 
     /**
@@ -46,7 +50,7 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request,ImageUploadHandler $imageUploadHandler)//CreateUserRequest
     {
-        $save_user_res = $this->permissRepository->createUser($request->only(['name','email','phone','password','is_admin']));
+        $save_user_res = $this->permissRepository->createUser($request->only(['name','email','phone','password','is_admin','role']));
 
         $save_path = 'upload/images/avatars/'; //图片保存地址 /storage
         $save_name = 'avatar_';         //图片名称

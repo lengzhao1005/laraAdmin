@@ -29,7 +29,12 @@ class PermissRepository
 
     public function createUser($user_data)
     {
-        return $this->user_model->create($user_data);
+        $user = $this->user_model->create($user_data);
+        $roles = $user_data['role']??[];
+        if(!empty($roles)){
+            $user->Roles()->attach($roles);
+        }
+        return $user;
     }
 
     /**
@@ -51,7 +56,8 @@ class PermissRepository
     public function getAdminUserList($page,$limit)
     {
         $skip = $limit * ($page-1);
-        $admin_users = $this->user_model->where('is_admin',1)->skip($skip)->take($limit)->get()->toArray();
+        $admin_users = $this->user_model::getUserAndRole($skip,$limit)->toArray();
+
         $count = $this->user_model->where('is_admin',1)->count();
         return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
 
@@ -66,9 +72,9 @@ class PermissRepository
     public function getRoleList($page,$limit)
     {
         $skip = $limit * ($page-1);
-        $admin_users = $this->role_model->skip($skip)->take($limit)->get()->toArray();
+        $roles = $this->role_model::getRolesAndPermiss($skip,$limit)->toArray();
         $count = $this->role_model->count();
-        return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
+        return response()->json(['code'=>0,'data'=>$roles,'msg'=>'','count'=>$count]);
     }
 
     /*
@@ -86,7 +92,7 @@ class PermissRepository
      * 获取权限分组列表
      * @return mixed
      */
-    public function getAllPermissionBuyGroup()
+    public function getAllPermissionByGroup()
     {
         $permissions = Permission::where('status','T')->orderBy('group')->get();
 

@@ -33,4 +33,27 @@ class Role extends Model
 
         return $grop[$value];
     }
+
+    public static function getRolesAndPermiss($skip='',$limit='')
+    {
+        if($skip!=='' && $limit!==''){
+            $roles = self::where('status','T')->with('Permissions')->skip($skip)->take($limit)->get();
+        }else{
+            $roles = self::where('status','T')->with('Permissions')->get();
+        }
+
+        return $roles->map(function($item){
+
+            $permisss = $item->Permissions->map(function($permiss){
+                return $permiss->name;
+            });
+            $item->permiss_str = implode(',',$permisss->toArray());
+            return $item;
+        });
+    }
+
+    public static function getRoles()
+    {
+        return self::where('status','T')->get();
+    }
 }
