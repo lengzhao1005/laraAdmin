@@ -9,7 +9,6 @@
 namespace App\Repositories;
 
 
-use App\Handlers\ImageUploadHandler;
 use App\Model\Permission;
 use App\Model\Role;
 use App\Model\User;
@@ -25,26 +24,6 @@ class PermissRepository
         $this->user_model = $user;
         $this->role_model = $role;
         $this->permission_model = $permission;
-    }
-
-    public function createUser($user_data)
-    {
-        $user = $this->user_model->create($user_data);
-        $roles = $user_data['role']??[];
-        if(!empty($roles)){
-            $user->Roles()->attach($roles);
-        }
-        return $user;
-    }
-
-    /**
-     * @param $permission_data
-     * @return mixed
-     */
-    public function createPermission($permission_data)
-    {
-        $permission_data['status'] = ($permission_data['status'] == 'on'? 'T':'F');
-        return $this->permission_model->create($permission_data);
     }
 
     /**
@@ -77,7 +56,7 @@ class PermissRepository
         return response()->json(['code'=>0,'data'=>$roles,'msg'=>'','count'=>$count]);
     }
 
-    /*
+    /**
      * 获取权限列表
      */
     public function getPermissionList($page,$limit)
@@ -88,20 +67,41 @@ class PermissRepository
         return response()->json(['code'=>0,'data'=>$admin_users,'msg'=>'','count'=>$count]);
     }
 
+    public function createUser($user_data)
+    {
+        $user = $this->user_model->create($user_data);
+        $roles = $user_data['role']??[];
+        if(!empty($roles)){
+            $user->Roles()->attach($roles);
+        }
+        return $user;
+    }
+
+    public function updateUser($user,$data)
+    {
+        $roles = $data['role']??[];
+        $user->update($data);
+        $user->Roles()->sync($roles);
+        return $user;
+    }
+
+    /**
+     * @param $permission_data
+     * @return mixed
+     */
+    public function createPermission($permission_data)
+    {
+        $permission_data['status'] = ($permission_data['status'] == 'on'? 'T':'F');
+        return $this->permission_model->create($permission_data);
+    }
+
     /**
      * 获取权限分组列表
      * @return mixed
      */
     public function getAllPermissionByGroup()
     {
-        $permissions = Permission::where('status','T')->orderBy('group')->get();
-
-        $permissions = $permissions->mapToGroups(function($item,$key){
-
-            return [$item->group => $item];
-        });
-
-        return $permissions->toArray();
+        return $this->permission_model::getAllPermissionByGroup();
     }
 
     /**
@@ -119,5 +119,15 @@ class PermissRepository
 
         if(!empty($role->toArray())) return $role;
         return [];
+    }
+
+    public function updateRole($role,$data)
+    {
+        $data['status'] = ($data['status']?'T':'F');
+        $data['permiss'] = ($data['permiss']??[]);
+
+        $res = $role->update($data);
+        $role->Permissions()->sync($data['permiss']);
+        return $res;
     }
 }

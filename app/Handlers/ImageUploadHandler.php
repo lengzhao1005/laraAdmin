@@ -38,7 +38,7 @@ class ImageUploadHandler
         }
 
         return [
-            'path' => 'app/public/'.$save_path.$file_name
+            'path' => 'storage/'.$save_path.$file_name
         ];
     }
 

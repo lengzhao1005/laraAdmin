@@ -34,6 +34,15 @@ class Role extends Model
         return $grop[$value];
     }
 
+    public static function getRoleAndPermissByRoleId($id)
+    {
+        $role = self::where('id',$id)->with('Permissions')->first();
+        $role->permission_ids = $role->Permissions->map(function ($item){
+            return $item->id;
+        });
+        return $role;
+    }
+
     public static function getRolesAndPermiss($skip='',$limit='')
     {
         if($skip!=='' && $limit!==''){

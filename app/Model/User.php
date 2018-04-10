@@ -68,4 +68,16 @@ class User extends Authenticatable
             return $item;
         });
     }
+
+    public static function getUserAndRoleByUid($id)
+    {
+        $user = self::where('id',$id)->with('Roles')->first();
+
+        $user->role_ids = $user->Roles->map(function($role){
+            return $role->id;
+        });
+
+        return $user;
+
+    }
 }

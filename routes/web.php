@@ -13,15 +13,15 @@
 
 Route::get('/', function () {
 
-    $i='PT1RT3hJVE4=';
+    /*$i='PT1RT3hJVE4=';
         $step1=base64_decode($i);
         $step2=strrev($step1);
         $res = base64_decode($step2);
 
-    dd($res);
+    dd($res);*/
 
 
-    $data = [];
+    /*$data = [];
     for($i=5018;$i<=10017;$i++) {
         $data[$i]['allpay_mno'] = '86570004';
         $data[$i]['id_wxplatform'] = 1;
@@ -32,7 +32,7 @@ Route::get('/', function () {
     }
     //dd($data);
     $res = DB::connection('mysql_yinzhun')->table('merchant')->insert($data);
-    dd($res);
+    dd($res);*/
     /*$i=8;
     $step1=base64_encode($i);
     $step2=strrev($step1);
@@ -53,25 +53,5 @@ Route::get('/test',function(){
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-//==============================后台
-Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
-    //==========================主页
-    Route::get('/','AdminController@main');
-    //==========================上传
-    Route::post('upload/{action}','HandlerController@upload');
-    //==========================首页
-    Route::get('/index','AdminController@index');
-
-    //==========================rbac
-    Route::resource('users','Rbac\UserController');
-    Route::resource('roles','Rbac\RoleController');
-    Route::resource('permissions','Rbac\PermissionController');
-    //==========================获取数据列表
-    Route::get('table/user/','Rbac\ListController@adminUsers');
-    Route::get('table/permission/','Rbac\ListController@adminPermissions');
-    Route::get('table/role/','Rbac\ListController@adminRoles');
-});

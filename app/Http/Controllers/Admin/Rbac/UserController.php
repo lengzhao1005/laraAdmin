@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Rbac;
 use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\CreateUserRequest;
 use App\Model\Role;
+use App\Model\User;
 use App\Repositories\PermissRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,7 +72,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -82,7 +83,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::getUserAndRoleByUid($id);
+        //获取角色列表
+        $roles = Role::getRoles();
+        return view('admin.permiss.user_edit',compact('user','roles'));
     }
 
     /**
@@ -92,9 +96,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImageUploadHandler $imageUploadHandler, User $user)
     {
-        //
+        $this->validate($request,
+            ['phone'=>'unique:users,phone,'.$user->id, 'email'=>'required|unique:users,email,'.$user->id],
+            ['phone'=>'电话号已被占用', 'email.unique'=>'邮箱已被占用', 'email.required'=>'邮箱不能为空']);
+
+        $this->permissRepository->updateUser($user,$request->only(['name','email','phone','password','role']));
+
+        $save_path = 'upload/images/avatars/'; //图片保存地址 /storage
+        $save_name = 'avatar_';         //图片名称
+        if($request->avatar) {
+            $avatar_res = $imageUploadHandler->save($request->avatar,$save_path,$save_name,150);
+            $user->avatar = $avatar_res['path'];
+            $user->save();
+        }
+        return redirect('/admin/users/'.$user->id.'/edit')->with('status','修改成功');
     }
 
     /**
@@ -103,8 +120,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $res_data = ['err_code'=>500, 'err_msg'=>'删除失败'];
+
+        if($user->delete()){
+            $user->Roles()->detach();
+            $res_data = ['err_code'=>200, 'err_msg'=>'删除成功'];
+        }
+
+        return response()->json($res_data);
     }
 }

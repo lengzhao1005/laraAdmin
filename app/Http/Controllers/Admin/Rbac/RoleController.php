@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Rbac;
 
-use App\Http\Requests\PermissionRequest;
+use App\Model\Role;
 use App\Repositories\PermissRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,7 +33,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permission = $this->_repositroy->getAllPermissionByGroup();
+        $permission = $this->_repositroy->getAllPermissionByGroup()->toArray();
 
         return view('admin.permiss.role_create',compact('permission'));
     }
@@ -75,7 +75,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::getRoleAndPermissByRoleId($id);
+        //获取权限列表
+        $permissions = $this->_repositroy->getAllPermissionByGroup();
+        return view('admin.permiss.role_edit',compact('role','permissions'));
     }
 
     /**
@@ -85,9 +88,16 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $this->validate($request,
+            ['name' => 'required|unique:roles,name,'.$role->id,],
+            ['name.unique'=>'角色名称已存在']);
+
+        $res = $this->_repositroy->updateRole($role,$request->only(['name','description','status','permiss']));
+        if($res) return redirect('admin/roles/'.$role->id.'/edit')->with('status','修改成功');
+
+        return redirect('admin/roles/'.$role->id.'/edit')->with('status','修改失败');
     }
 
     /**

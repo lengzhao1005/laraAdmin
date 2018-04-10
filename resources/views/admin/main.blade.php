@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="{{ asset('layui/css/layui.css') }}" media="all">
     <link rel="stylesheet" href="{{ asset('css/admin/style/admin.css') }}" media="all">
 
-    <script>
-        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
-    </script>
 </head>
 <body class="layui-layout-body">
 
