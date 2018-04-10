@@ -29,7 +29,7 @@ class Role extends Model
 
     public function getGroupAttribute($value)
     {
-        $grop = config('app.permiss_grop');
+        $grop = config('app.permiss_group');
 
         return $grop[$value];
     }

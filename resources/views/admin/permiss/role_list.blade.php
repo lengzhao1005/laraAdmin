@@ -66,12 +66,25 @@
                 if(obj.event === 'detail'){
                     layer.msg('ID：'+ data.id + ' 的查看操作');
                 } else if(obj.event === 'del'){
-                    layer.confirm('真的删除行么', function(index){
+                    layer.confirm('真的删除行么，对应的用户关系也会删除', function(index){
 
+                        $.ajax({
+                            url:'{{ url('admin/roles') }}'+'/'+data.id,
+                            data:{'_token':window.csrf_token},
+                            type:'DELETE',
+                            dataType:'json',
+                            success:function(res){
+                                if(res.err_code==200){
+                                    obj.del();
+                                    layer.close(index);
+                                    layer.msg(res.err_msg,{icon:'6'})
+                                }else{
+                                    layer.msg(res.err_msg,{icon:5});
+                                }
+                                return;
+                            },
+                        });
 
-
-                        obj.del();
-                        layer.close(index);
                     });
                 } else if(obj.event === 'edit'){
                     // layer.alert('编辑行：<br>'+ JSON.stringify(data))

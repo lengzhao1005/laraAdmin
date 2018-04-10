@@ -29,8 +29,9 @@ class CreateRbacTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',100)->unique()->comment('权限名称');
-            $table->string('url')->unique()->comment('权限路由');
-            $table->tinyInteger('group')->index()->comment('权限路由');
+            $table->string('url')->comment('权限路由');
+            $table->string('method',50)->default('GET')->comment('请求方式');
+            $table->tinyInteger('group')->index()->comment('权限分组');
             $table->string('description')->nullable()->comment('权限描述');
             $table->enum('status',['F','T'])->default('T')->comment('F:禁用；T启用');
             $table->timestamps();

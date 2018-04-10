@@ -20,7 +20,9 @@
 
 
 <script src="{{ asset('layuiadmin/layui/layui.js?t=1') }}"></script>
-
+<script>
+    window.csrf_token = "{{ csrf_token() }}";
+</script>
 @yield('_js')
 
 </body>

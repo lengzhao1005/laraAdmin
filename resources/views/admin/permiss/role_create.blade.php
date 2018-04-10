@@ -55,7 +55,7 @@
                         {{--权限分组列表--}}
                         @foreach($permission as $key=>$value)
                             <div class="layui-input-inline" style="padding: 10px; margin-bottom: 10px;background-color: #F5F5F5">
-                                <div style="text-align: center;color: #000;">{{ config('app.permiss_grop')[$key] }}:</div>
+                                <div style="text-align: center;color: #000;">{{ config('app.permiss_group')[$key] }}:</div>
                                 <div><input type="checkbox" lay-skin="primary" lay-filter="allChoose" title="全选"></div>
 
                                 @foreach($value as $k=>$v)

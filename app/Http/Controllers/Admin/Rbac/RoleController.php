@@ -106,8 +106,14 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $res = $role->delete();
+        if($res){
+            $role->Permissions()->detach();
+            return response()->json(['err_code'=>200,'err_msg'=>'删除成功']);
+        }
+
+        return response()->json(['err_code'=>500,'err_msg'=>'删除失败']);
     }
 }

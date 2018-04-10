@@ -122,13 +122,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $res_data = ['err_code'=>500, 'err_msg'=>'删除失败'];
-
         if($user->delete()){
             $user->Roles()->detach();
-            $res_data = ['err_code'=>200, 'err_msg'=>'删除成功'];
+            return response()->json(['err_code'=>200, 'err_msg'=>'删除成功']);
         }
 
-        return response()->json($res_data);
+        return response()->json(['err_code'=>500, 'err_msg'=>'删除失败']);
     }
 }

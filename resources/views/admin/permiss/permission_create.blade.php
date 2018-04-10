@@ -67,12 +67,25 @@
                 <div class="layui-form-item">
                     @if ($errors->has('description'))
                         <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
+                            <strong>{{ $errors->first('description') }}</strong>
+                        </span>
                     @endif
                     <label class="layui-form-label">权限描述：</label>
                     <div class="layui-input-block">
                         <input name="description" lay-verify="description" placeholder="添加用户的权限" autocomplete="off" value="{{ old('description') }}" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求方式：</label>
+                    <div class="layui-input-block">
+
+                        <input type="radio" checked lay-skin="primary" lay-filter="oneChoose" value="GET" name="method" title="GET">
+                        <input type="radio" lay-skin="primary" lay-filter="oneChoose" value="POST" name="method" title="POST">
+                        {{--<input type="radio" lay-skin="primary" lay-filter="oneChoose" value="PUT" name="method" title="PUT">--}}
+                        <input type="radio" lay-skin="primary" lay-filter="oneChoose" value="PATCH" name="method" title="PATCH">
+                        <input type="radio" lay-skin="primary" lay-filter="oneChoose" value="DELETE" name="method" title="DELETE">
+
                     </div>
                 </div>
 

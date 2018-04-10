@@ -12,7 +12,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'description', 'status'
+        'name', 'url', 'description', 'method', 'status'
     ];
 
     public static function getPermission()
@@ -28,5 +28,10 @@ class Permission extends Model
 
             return [$item->group => $item];
         });
+    }
+
+    public function Roles()
+    {
+        return $this->belongsToMany('App\Model\Role')->withTimestamps();
     }
 }

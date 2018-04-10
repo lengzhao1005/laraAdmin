@@ -25,7 +25,7 @@ class PermissionRequest extends FormRequest
     {
         return [
             'name'=>'required|unique:permissions',
-            'url'=>'required|unique:permissions',
+            'url'=>'required',
         ];
     }
 
@@ -35,7 +35,6 @@ class PermissionRequest extends FormRequest
             'name.required'=>'权限名不能为空',
             'name.unique'=>'权限名已存在',
             'url.required'=>'权限对应的地址不能为空',
-            'url.unique'=>'权限对应的地址已存在'
         ];
     }
 }

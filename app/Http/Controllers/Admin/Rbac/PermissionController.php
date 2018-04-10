@@ -33,7 +33,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $grop = config('app.permiss_grop');
+        $grop = config('app.permiss_group');
         return view('admin.permiss.permission_create',compact('grop'));
     }
 
@@ -45,7 +45,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        $this->permissiRepository->createPermission($request->only(['name','url','description','status']));
+        $this->permissiRepository->createPermission($request->only(['name','url','description','method','status']));
         return redirect('admin/permissions/create')->with('status','添加成功');
     }
 
@@ -66,9 +66,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
+        return view('admin.permiss.permission_edit',compact('permission'));
     }
 
     /**
@@ -78,9 +78,15 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
+        $this->validate($request,
+            ['name'=>'unique:permissions,name,'.$permission->id],
+            ['name'=>'权限名已被占用']);
+        $data = $request->only(['name','status','url','description','method']);
+        $data['status'] = $data['status']??"F";
+        $permission->update($data);
+        return redirect('admin/permissions/'.$permission->id.'/edit')->with('status','修改成功');
     }
 
     /**
@@ -89,8 +95,14 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $res = $permission->delete();
+        if($res){
+            $permission->Roles()->detach();
+            return response()->json(['err_code'=>200,'err_msg'=>'删除成功']);
+        }
+
+        return response()->json(['err_code'=>500,'err_msg'=>'删除失败']);
     }
 }
