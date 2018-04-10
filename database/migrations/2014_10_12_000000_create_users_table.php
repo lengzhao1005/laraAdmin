@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('email')->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('password');
             $table->string('avatar')->default(0);
             $table->string('confirmation_token')->nullable();
@@ -29,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('followers_count')->default(0);
             $table->integer('followings_count')->default(0);
             $table->json('settings')->nullable();
-            $table->string('api_token',64)->unique();
+            $table->string('api_token',64)->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
         });
