@@ -79,12 +79,12 @@ class RouteServiceProvider extends ServiceProvider
      * These routes are typically stateless.
      *
      * @return void
+     *
      */
     protected function mapAdminRoutes()
     {
         Route::middleware('web')
             ->prefix('admin')
-            ->middleware('auth')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }

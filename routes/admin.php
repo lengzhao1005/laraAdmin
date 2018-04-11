@@ -1,7 +1,7 @@
 <?php
 
 //==============================后台
-Route::group(['namespace'=>'Admin'],function(){
+Route::group(['namespace'=>'Admin','middleware'=>['auth','web']],function(){
     //==========================主页
     Route::get('/','AdminController@main');
     //==========================上传
