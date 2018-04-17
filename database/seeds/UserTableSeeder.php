@@ -23,7 +23,9 @@ class UserTableSeeder extends Seeder
         ];
 
         $users = factory(\App\Model\User::class)
-            ->times(10)
+
+            ->times(20)
+
             ->make()
             ->each(function ($user,$index) use($faker,$avatars){
                 $user->avatar = $faker->randomElement($avatars);

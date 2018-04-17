@@ -44,7 +44,7 @@
                     ,{field:'phone', width:80, title: '电话', sort: true}
                     ,{field:'email', width:80, title: '邮箱'}
                     ,{field:'roles_str', width:200, title: '角色'}
-                    ,{field: 'avatar', title: '头像', width: 150,templet:'<div><img src="{{ asset('/') }}/@{{ d.avatar}}" width=50></div>'}
+                    ,{field: 'avatar', title: '头像', width: 150,templet:'<div><img src="@{{ d.avatar}}" width=50></div>'}
                     ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo',title:'操作'}
                 ]]
                 ,page:true

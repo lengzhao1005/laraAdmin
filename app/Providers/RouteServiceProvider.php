@@ -79,6 +79,7 @@ class RouteServiceProvider extends ServiceProvider
      * These routes are typically stateless.
      *
      * @return void
+     *
      */
     protected function mapAdminRoutes()
     {
