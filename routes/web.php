@@ -11,9 +11,26 @@
 |
 */
 
-Route::get('/', function () {
+class G
+{
+    public $get;
 
-    /*$i='PT1RT3hJVE4=';
+    public function Set()
+    {
+
+    }
+}
+
+Route::get('/', function () {
+    $json = '{"charset":"UTF-8","err_code":"ORDERPAID","err_msg":"\u8be5\u8ba2\u5355\u5df2\u652f\u4ed8","mch_id":"101540247292","nonce_str":"1015402472921523667801","result_code":"1","sign":"2F1771AD2FD2F786CA20949006A3763C","sign_type":"MD5","status":"0","version":"2.0","func":"jspay"}';
+
+    dump($id = spl_object_hash(new G()));
+    $get[$id] = new G();
+    dd($get);
+
+    dd(json_decode($json,1));
+
+    /*$i='PU1ETXdNVE0=';
         $step1=base64_decode($i);
         $step2=strrev($step1);
         $res = base64_decode($step2);
@@ -55,3 +72,5 @@ Auth::routes();
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/swoole','SwooleController@index');

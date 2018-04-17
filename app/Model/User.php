@@ -80,4 +80,21 @@ class User extends Authenticatable
         return $user;
 
     }
+
+    public function getPermissions()
+    {
+        /**
+         * todo 有必要利用缓存（优化）
+         */
+        $permissions = $this->Roles()
+            ->with('Permissions')
+            ->get()
+            ->map(function($item){
+                return $item->Permissions
+                    ->mapWithKeys(function($p){
+                        return [$p->url.'__'.strtoupper($p->method)=>$p->url.'__'.strtoupper($p->method)];
+                    });
+            });
+        return $permissions->collapse();
+    }
 }

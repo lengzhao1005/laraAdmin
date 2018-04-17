@@ -1,7 +1,7 @@
 <?php
 
 //==============================后台
-Route::group(['namespace'=>'Admin'],function(){
+Route::group(['namespace'=>'Admin','middleware'=>['auth','admin']],function(){
     //==========================主页
     Route::get('/','AdminController@main');
     //==========================上传
@@ -14,6 +14,10 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::resource('roles','Rbac\RoleController',['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
     Route::resource('permissions','Rbac\PermissionController',['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
 
+});
+
+//==============================后台
+Route::group(['namespace'=>'Admin','middleware'=>['auth']],function(){
     //==========================获取数据列表
     Route::get('table/user/','Rbac\ListController@adminUsers');
     Route::get('table/permission/','Rbac\ListController@adminPermissions');
